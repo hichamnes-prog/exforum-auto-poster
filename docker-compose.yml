@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Redis - Message broker and result backend
+  redis:
+    image: redis:7-alpine
+    container_name: clipkit-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: clipkit-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./clipkit.config.yaml:/app/clipkit.config.yaml
+      - storage-data:/app/storage
+    environment:
+      - CLIPKIT_CONFIG=clipkit.config.yaml
+      - CLIPKIT_WORKER__BROKER_URL=redis://redis:6379/0
+      - CLIPKIT_WORKER__RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Celery Worker
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: clipkit-worker
+    volumes:
+      - ./backend:/app
+      - ./clipkit.config.yaml:/app/clipkit.config.yaml
+      - storage-data:/app/storage
+    environment:
+      - CLIPKIT_CONFIG=clipkit.config.yaml
+      - CLIPKIT_WORKER__BROKER_URL=redis://redis:6379/0
+      - CLIPKIT_WORKER__RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: celery -A app.worker.celery_app worker --loglevel=info --concurrency=2
+
+    # Uncomment for GPU support (requires nvidia-docker)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: clipkit-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=/api
+
+volumes:
+  redis-data:
+    driver: local
+  storage-data:
+    driver: local
+
+networks:
+  default:
+    name: clipkit-network

@@ -1,0 +1,142 @@
+# ClipKit Configuration File
+# Adjust these settings to customize clip generation behavior
+
+# Video processing settings
+video:
+  max_upload_size_mb: 2000  # Maximum upload size in MB (2GB)
+  max_duration_hours: 2      # Maximum video duration in hours
+
+# Clip generation settings
+clips:
+  min_duration: 8            # Minimum clip length in seconds
+  max_duration: 60           # Maximum clip length in seconds
+  target_duration: 30        # Target clip length in seconds
+  max_clips: 10              # Maximum number of clips to generate
+
+  # Output aspect ratios
+  aspect_ratios:
+    - name: "vertical"
+      ratio: "9:16"
+      width: 1080
+      height: 1920
+    - name: "landscape"
+      ratio: "16:9"
+      width: 1920
+      height: 1080
+    - name: "square"
+      ratio: "1:1"
+      width: 1080
+      height: 1080
+      enabled: false  # Disabled by default
+
+# Transcription settings (OpenAI Whisper)
+whisper:
+  model: "base"  # Options: tiny, base, small, medium, large, large-v2, large-v3
+  device: "cpu"  # Options: cpu, cuda
+  language: null  # Auto-detect by default, or specify: en, es, fr, etc.
+
+  # WhisperX settings for word-level timestamps
+  use_whisperx: true
+  align_model: true  # Use forced alignment for better timestamps
+
+  # Compute settings
+  compute_type: "int8"  # Options: int8, float16, float32 (int8 for CPU, float16 for GPU)
+  batch_size: 16
+
+# Scene detection settings
+scene_detection:
+  method: "content"  # Options: content, threshold, adaptive
+  threshold: 27.0    # Lower = more scene changes detected (range: 0-100)
+  min_scene_len: 15  # Minimum scene length in frames
+
+# Highlight scoring weights (sum should equal 1.0)
+highlight_scoring:
+  # Weight for speech density (words per second)
+  speech_density_weight: 0.3
+
+  # Weight for audio energy/loudness peaks
+  audio_energy_weight: 0.25
+
+  # Weight for scene changes (visual interest)
+  scene_change_weight: 0.2
+
+  # Weight for sustained speech (continuous talking)
+  sustained_speech_weight: 0.15
+
+  # Penalty for clips that are too short or too long
+  duration_penalty_weight: 0.1
+
+  # Thresholds
+  min_speech_density: 1.5  # Minimum words per second
+  min_audio_energy: 0.3    # Minimum normalized audio energy (0-1)
+  min_score: 0.4           # Minimum total score to keep clip (0-1)
+
+# Caption settings
+captions:
+  # Font settings for burned-in captions
+  font_size: 24
+  font_color: "white"
+  font_outline_color: "black"
+  font_outline_width: 2
+  font_name: "Arial"
+
+  # Position
+  position: "bottom"  # Options: top, center, bottom
+  margin: 50          # Margin from edge in pixels
+
+  # Timing
+  max_words_per_caption: 10
+  min_caption_duration: 0.5  # Minimum time to show a caption in seconds
+
+  # Style
+  background: true           # Show background box
+  background_color: "black@0.5"  # Semi-transparent black
+
+# Storage settings
+storage:
+  base_path: "./storage"
+  uploads_path: "./storage/uploads"
+  clips_path: "./storage/clips"
+  captions_path: "./storage/captions"
+  temp_path: "./storage/temp"
+
+  # Cleanup settings
+  auto_cleanup_days: 7  # Auto-delete jobs older than N days (0 = disabled)
+
+# Worker settings
+worker:
+  # Celery settings
+  broker_url: "redis://redis:6379/0"
+  result_backend: "redis://redis:6379/0"
+  task_time_limit: 3600  # Maximum task time in seconds (1 hour)
+
+  # Processing
+  concurrent_workers: 2  # Number of concurrent processing jobs
+
+# FFmpeg settings
+ffmpeg:
+  # Audio extraction
+  audio_codec: "pcm_s16le"
+  audio_sample_rate: 16000
+
+  # Video encoding for clips
+  video_codec: "libx264"
+  video_preset: "medium"  # Options: ultrafast, fast, medium, slow, veryslow
+  video_crf: 23           # Quality (lower = better, range: 0-51, 23 is default)
+  audio_bitrate: "128k"
+
+  # Hardware acceleration (optional)
+  hwaccel: null  # Options: null, cuda, videotoolbox, qsv
+
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Development settings
+development:
+  debug: false
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:5173"
+  reload: false
